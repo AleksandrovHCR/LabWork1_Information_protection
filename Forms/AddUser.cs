@@ -35,8 +35,11 @@ namespace LabWork1.Forms
                         if(user.Get_Username()==user1.Get_Username())
                             isExists = true;
                     }
-                    if(!isExists)
+                    if (!isExists)
+                    {
+                        user.GeneratePasskey(Main.Users);
                         Main.Users.Add(user);
+                    }
                     else
                         MessageBox.Show("That username is used! Use other username.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
@@ -51,7 +54,10 @@ namespace LabWork1.Forms
                             isExists = true;
                     }
                     if (!isExists)
+                    {
+                        user.GeneratePasskey(Main.Users);
                         Main.Users.Add(user);
+                    }
                     else
                         MessageBox.Show("That username is used! Use other username.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
