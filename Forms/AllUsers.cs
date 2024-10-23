@@ -31,10 +31,10 @@ namespace LabWork1.Forms
             {
                 dataGridView1.Rows.Add();
                 dataGridView1[0,i].Value=usr.Get_Username();
-                dataGridView1[1, i].Value = usr.Get_Password();
-                dataGridView1[2, i].Value = usr.Get_IsAdmin() ? "Administrator" : "Ordinary";
-                dataGridView1[3, i].Value = usr.Get_Blocked() ? "Sealed" : "Active";
-                dataGridView1[4, i].Value = usr.Get_limitation();
+               // dataGridView1[1, i].Value = usr.Get_Password();
+                dataGridView1[1, i].Value = usr.Get_IsAdmin() ? "Administrator" : "Ordinary";
+                dataGridView1[2, i].Value = usr.Get_Blocked() ? "Sealed" : "Active";
+                dataGridView1[3, i].Value = ">="+usr.Get_limitation();
                 
                 i++;
             }

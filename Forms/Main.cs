@@ -10,10 +10,7 @@ using System.IO;
 using System.Windows.Forms;
 using LabWork1.Classes;
 using LabWork1.Forms;
-using System.Security.Cryptography.X509Certificates;
-using System.Security.AccessControl;
-using System.Security.Cryptography;
-using System.Security.Policy;
+
 
 
 namespace LabWork1
@@ -21,12 +18,12 @@ namespace LabWork1
     public partial class Main : Form
     {
         public List<User> Users = new List<User>();
-        public string Hash="H0w_much_isop1um_cost_f01_p9op1e?";
+        public string Hash="Lorem_ipsum";
         public bool Good=false;
         public User Current_User = null;
         public Main()
         {
-            
+           
             InitializeComponent();
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -51,8 +48,14 @@ namespace LabWork1
             FileToUse file = new FileToUse("DB.txt", Users);
             Good = true;
             file.Check_file_existance(Hash);
-           
             Users = file.GetUsers();
+            this.BringToFront();
+            if (Users == null)
+            {
+                MessageBox.Show("Database is corrupted. Remove corrupted database and restart the application!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Good = false;
+                this.Close();
+            }
         }
 
 
@@ -65,9 +68,9 @@ namespace LabWork1
         }
         private void If_passwordless()
         {
-            if (Current_User.Get_Password() == "")
+            if (Current_User.Get_Password() == "" || Current_User.Get_Password().Length < Current_User.Get_limitation())
             {
-                MessageBox.Show("Your account is lack of password! Change your password now.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Your account is lack of password or your password is too short! Change your password now.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 ChangePassword CP = new ChangePassword(this);
                 CP.ShowDialog();
                 if (Current_User.Get_Password() == "")
@@ -79,6 +82,11 @@ namespace LabWork1
                 {
                     FileToUse file = new FileToUse("DB.txt", Users);
                     file.Replace();
+                    Current_User = null;
+                    сменитьПарольToolStripMenuItem.Enabled = false;
+                    добавитьПользователяToolStripMenuItem.Enabled = false;
+                    вывестиВсехПользователейToolStripMenuItem.Enabled = false;
+                    настроитьПользователяToolStripMenuItem.Enabled = false;
                 }
                 
             }
@@ -97,7 +105,8 @@ namespace LabWork1
                     вывестиВсехПользователейToolStripMenuItem.Enabled = true;
                     настроитьПользователяToolStripMenuItem.Enabled = true;
                     If_passwordless();
-                    MessageBox.Show("Welcome, administrator!", "Info", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    if (Current_User != null)
+                        MessageBox.Show("Welcome, administrator!", "Info", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     
                 }
                 else
@@ -107,6 +116,7 @@ namespace LabWork1
                     вывестиВсехПользователейToolStripMenuItem.Enabled = false;
                     настроитьПользователяToolStripMenuItem.Enabled = false;
                     If_passwordless();
+                    if(Current_User!=null)
                     MessageBox.Show("Welcome!", "Info", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 
                 }
@@ -120,10 +130,19 @@ namespace LabWork1
 
         private void сменитьПарольToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            string password=Current_User.Get_Password();
             ChangePassword CP = new ChangePassword(this);
             CP.ShowDialog();
             FileToUse file = new FileToUse("DB.txt", Users);
             file.Replace();
+            if (Current_User.Get_Password() != password)
+            {
+                сменитьПарольToolStripMenuItem.Enabled = false;
+                добавитьПользователяToolStripMenuItem.Enabled = false;
+                вывестиВсехПользователейToolStripMenuItem.Enabled = false;
+                настроитьПользователяToolStripMenuItem.Enabled = false;
+                Current_User = null;
+            }
         }
 
         private void вывестиВсехПользователейToolStripMenuItem_Click(object sender, EventArgs e)
@@ -162,7 +181,12 @@ namespace LabWork1
             catch { }
         }
 
-      
+        private void Main_Load(object sender, EventArgs e)
+        {
+
+        }
+
+
         //private static void EncryptFile(string path, byte[] key)//Текст Аннунаков с Нибиру
         //{
         //    string tmpPath = Path.GetTempFileName();

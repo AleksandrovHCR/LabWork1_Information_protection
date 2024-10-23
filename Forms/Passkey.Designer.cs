@@ -47,6 +47,7 @@
             // 
             this.textBox1.Location = new System.Drawing.Point(15, 28);
             this.textBox1.Name = "textBox1";
+            this.textBox1.PasswordChar = '*';
             this.textBox1.Size = new System.Drawing.Size(312, 22);
             this.textBox1.TabIndex = 1;
             // 
@@ -68,9 +69,11 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "Passkey";
             this.Text = "Passkey";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Passkey_FormClosed);
+            this.Load += new System.EventHandler(this.Passkey_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

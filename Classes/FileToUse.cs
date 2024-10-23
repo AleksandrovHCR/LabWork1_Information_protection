@@ -208,7 +208,7 @@ namespace LabWork1.Classes
             //streamWriter.WriteLine(textBox.Text);
             //streamWriter.Close();
         }
-        public void Decrypt_task(string Hash)
+        public int Decrypt_task(string Hash)
         {
             System.Windows.Forms.TextBox textBox = new System.Windows.Forms.TextBox();
             StreamReader streamReader = new StreamReader("DB.txt");
@@ -228,11 +228,15 @@ namespace LabWork1.Classes
                     textBox.Text = UTF8Encoding.UTF8.GetString(result);
                 }
                 //}
+
+
+                
                 StreamWriter SW = new StreamWriter(Filename);
                 SW.WriteLine(textBox.Text);
                 SW.Close();
+                return 1;
             }
-            catch { }
+            catch { return 0; }
             //StreamReader streamReader = new StreamReader("Aryantext.txt");
             //string EncryptedText = streamReader.ReadToEnd();
             //streamReader.Close();
@@ -268,6 +272,7 @@ namespace LabWork1.Classes
         
         public void Check_file_existance(string Hash)
         {
+            int IsDecrypted=0;
             if (!File.Exists(Filename))
             {
                 StreamWriter streamWriter = new StreamWriter(this.Filename);
@@ -282,21 +287,28 @@ namespace LabWork1.Classes
             {
                 try
                 {
-                    Decrypt_task(Hash);
+                    IsDecrypted=Decrypt_task(Hash);
                 }
-                finally { 
-                StreamReader streamReader = new StreamReader(this.Filename);
-                while (!streamReader.EndOfStream)
-                {
-                    string[] Converter = streamReader.ReadLine().Split(' ');
-                    if (Converter.Length == 6)
+                finally {
+                    if (IsDecrypted == 1)
                     {
-                        User newUser = new User(Converter[0], Converter[1], Convert.ToBoolean(Converter[2]), Convert.ToBoolean(Converter[3]), Converter[5]);
-                        newUser.Set_limitation(Convert.ToInt32(Converter[4]));
-                        Users.Add(newUser);
+                        StreamReader streamReader = new StreamReader(this.Filename);
+                        while (!streamReader.EndOfStream)
+                        {
+                            string[] Converter = streamReader.ReadLine().Split(' ');
+                            if (Converter.Length == 6)
+                            {
+                                User newUser = new User(Converter[0], Converter[1], Convert.ToBoolean(Converter[2]), Convert.ToBoolean(Converter[3]), Converter[5]);
+                                newUser.Set_limitation(Convert.ToInt32(Converter[4]));
+                                Users.Add(newUser);
+                            }
+                        }
+                        streamReader.Close();
                     }
-                }
-                streamReader.Close();
+                    else
+                    {
+                        Users = null;
+                    }
              }
             }
         }

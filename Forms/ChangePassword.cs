@@ -29,7 +29,7 @@ namespace LabWork1.Forms
                 if(textBox2.Text==textBox3.Text && textBox2.Text.Length>=Main.Current_User.Get_limitation())
                 {
                     Main.Current_User.SetPassword(textBox2.Text);
-                    MessageBox.Show("Passwords changed.", "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show("Password changed. Your account will be signed out.", "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     this.Close();
                 }
                 else

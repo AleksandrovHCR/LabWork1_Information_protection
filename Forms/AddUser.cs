@@ -27,7 +27,7 @@ namespace LabWork1.Forms
             {
                 if (radioButton1.Checked)
                 {
-                    User user = new User(Convert.ToString(textBox1.Text), Convert.ToString(textBox2.Text), true);
+                    User user = new User(Convert.ToString(textBox1.Text),"", true);
                     user.Set_limitation(0);
                     bool isExists = false;
                     foreach(User user1 in Main.Users)
@@ -45,7 +45,7 @@ namespace LabWork1.Forms
                 }
                 else
                 {
-                    User user = new User(Convert.ToString(textBox1.Text), Convert.ToString(textBox2.Text), false);
+                    User user = new User(Convert.ToString(textBox1.Text),"", false);
                     user.Set_limitation(0);
                     bool isExists = false;
                     foreach (User user1 in Main.Users)

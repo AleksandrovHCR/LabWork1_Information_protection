@@ -32,14 +32,14 @@ namespace LabWork1.Forms
         {
             if (textBox1.Text == Main.Hash)
             {
-                MessageBox.Show( "Правильно. Файл будет дешифрован!","Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show( "Кодовое слово введено правильно. Файл будет дешифрован!","Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                
                 Main.INIT();
                 this.Close();
             }
             else
             {
-                MessageBox.Show( "Неправильно. Файл не будет дешифрован, а программа будет закрыта!","Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show( "Кодовое слово введено неправильно. Файл не будет дешифрован, а программа будет закрыта!","Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Main.Close();
                 //this.Close();
             }
@@ -54,6 +54,12 @@ namespace LabWork1.Forms
                 MessageBox.Show("Вы отказались от ввода КС. Файл не будет дешифрован, а программа будет закрыта!", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Main.Close();
             }
+        }
+
+        private void Passkey_Load(object sender, EventArgs e)
+        {
+            Main.Hide();
+            this.BringToFront();
         }
     }
 }

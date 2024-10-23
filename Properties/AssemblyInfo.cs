@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // набора атрибутов. Измените значения этих атрибутов для изменения сведений,
 // связанных со сборкой.
 [assembly: AssemblyTitle("Лабораторная работа 1")]
-[assembly: AssemblyDescription("Программа для ввода паролей. Сделана для первой лабораторной по защите инфы. Прочий лорем ипсум писать не хочу...")]
+[assembly: AssemblyDescription("Программа для ввода паролей. Сделана для первой и третьей лабораторной по защите информации. Прочий лорем ипсум писать не хочу...")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("МГТУ СТАНКИН")]
 [assembly: AssemblyProduct("Лабораторная работа 1")]
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // Можно задать все значения или принять номера сборки и редакции по умолчанию 
 // используя "*", как показано ниже:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.3.3.7")]
-[assembly: AssemblyFileVersion("1.3.3.7")]
+[assembly: AssemblyVersion("2.0.0.7")]
+[assembly: AssemblyFileVersion("2.0.0.7")]
